@@ -44,11 +44,13 @@ const useLogin = () => {
 
   const onSubmit = async () => {
     const userData = await getFromStorage("userData");
+    const token = btoa(`${userData.email}-${Date.now()}`);
     if (pin.join("") === userData?.pin) {
       dispatch(
         setUserData({
           name: userData.name,
           email: userData.email,
+          token: token,
         })
       );
       router.replace("/home");
